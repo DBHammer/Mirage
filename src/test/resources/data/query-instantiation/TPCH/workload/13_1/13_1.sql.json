@@ -1,0 +1,52 @@
+{
+  "13_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 14,
+                    "data" : 1,
+                    "type" : "LIKE"
+                  }
+                ],
+                "operator" : "NOT_LIKE",
+                "probability" : 0.9892086667,
+                "canonicalColumnName" : "public.orders.o_comment",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.9892086667
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer.c_custkey",
+          "localCols" : "public.orders.o_custkey",
+          "pkTag" : 0,
+          "probability" : 1,
+          "pkDistinctProbability" : 0.06739124135,
+          "type" : "OUTER_JOIN"
+        }
+      ],
+      "tableName" : "public.orders"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "c_custkey"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.customer"
+    }
+  ]
+}

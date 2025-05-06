@@ -1,0 +1,153 @@
+{
+  "q016_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.date_dim.d_date_sk",
+          "localCols" : "public.catalog_sales.cs_sold_date_sk",
+          "pkTag" : 12,
+          "probability" : 0.00922272446,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.item.i_item_sk",
+          "localCols" : "public.catalog_sales.cs_item_sk",
+          "pkTag" : 4,
+          "probability" : 0.09650244453,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer_address.ca_address_sk",
+          "localCols" : "public.catalog_sales.cs_bill_addr_sk",
+          "pkTag" : 3,
+          "probability" : 0.3826968044,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.catalog_sales"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 45,
+                        "data" : 3,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.0003969937987,
+                    "canonicalColumnName" : "public.date_dim.d_year",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 46,
+                        "data" : 3,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.0003969937987,
+                    "canonicalColumnName" : "public.date_dim.d_moy",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.0003969937987
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "d_date_sk"
+          ],
+          "pkTag" : 12
+        }
+      ],
+      "tableName" : "public.date_dim"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 44,
+                    "data" : 2,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.1003888889,
+                "canonicalColumnName" : "public.item.i_category",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.1003888889
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "i_item_sk"
+          ],
+          "pkTag" : 4
+        }
+      ],
+      "tableName" : "public.item"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 47,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.36492,
+                "canonicalColumnName" : "public.customer_address.ca_gmt_offset",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.36492
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "ca_address_sk"
+          ],
+          "pkTag" : 3
+        }
+      ],
+      "tableName" : "public.customer_address"
+    }
+  ]
+}

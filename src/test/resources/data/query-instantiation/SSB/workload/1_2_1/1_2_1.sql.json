@@ -1,0 +1,117 @@
+{
+  "1_2_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 5,
+                        "data" : 11,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 0.05464333544,
+                    "canonicalColumnName" : "public.lineorder.lo_discount",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 8,
+                        "data" : 51,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.lineorder.lo_quantity",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 7,
+                        "data" : 0,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.lineorder.lo_quantity",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 6,
+                        "data" : 12,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.lineorder.lo_discount",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.05464333544
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.date.d_datekey",
+          "localCols" : "public.lineorder.lo_orderdate",
+          "pkTag" : 1,
+          "probability" : 0.0130731511,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.lineorder"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 4,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.01212832551,
+                "canonicalColumnName" : "public.date.d_yearmonthnum",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.01212832551
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "d_datekey"
+          ],
+          "pkTag" : 1
+        }
+      ],
+      "tableName" : "public.date"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "2_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.region.r_regionkey",
+          "localCols" : "public.nation.n_regionkey",
+          "pkTag" : 0,
+          "probability" : 0.2,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "n_nationkey"
+          ],
+          "pkTag" : 2
+        }
+      ],
+      "tableName" : "public.nation"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 86,
+                    "data" : 3,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.2,
+                "canonicalColumnName" : "public.region.r_name",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.2
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "r_regionkey"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.region"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.nation.n_nationkey",
+          "localCols" : "public.supplier.s_nationkey",
+          "pkTag" : 2,
+          "probability" : 0.2036,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "s_suppkey"
+          ],
+          "pkTag" : 3
+        }
+      ],
+      "tableName" : "public.supplier"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.supplier.s_suppkey",
+          "localCols" : "public.partsupp.ps_suppkey",
+          "pkTag" : 3,
+          "probability" : 0.2036,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.part.p_partkey",
+          "localCols" : "public.partsupp.ps_partkey",
+          "pkTag" : 3,
+          "probability" : 0.004242387033,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "AGGREGATE",
+          "groupKey" : [
+            "public.partsupp.ps_partkey"
+          ],
+          "aggProbability" : 0.7322720695,
+          "aggFilter" : {
+            "constraintChainNodeType" : "FILTER",
+            "root" : {
+              "type" : "AND",
+              "children" : [
+                {
+                  "parameters" : [
+                    {
+                      "id" : 89,
+                      "data" : 0,
+                      "type" : "ACTUAL"
+                    }
+                  ],
+                  "operator" : "LE",
+                  "arithmeticTree" : {
+                    "leftNode" : {
+                      "type" : "COLUMN",
+                      "canonicalColumnName" : "public.partsupp.ps_supplycost"
+                    },
+                    "rightNode" : {
+                      "leftNode" : {
+                        "type" : "COLUMN",
+                        "canonicalColumnName" : "public.partsupp.ps_supplycost"
+                      },
+                      "type" : "MIN"
+                    },
+                    "type" : "MINUS"
+                  },
+                  "type" : "MULTI_FILTER_OPERATION",
+                  "allCanonicalColumnNames" : [
+                    "public.partsupp.ps_supplycost"
+                  ]
+                }
+              ]
+            },
+            "probability" : 0.7322720695
+          }
+        }
+      ],
+      "tableName" : "public.partsupp"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 87,
+                        "data" : 1,
+                        "type" : "LIKE"
+                      }
+                    ],
+                    "operator" : "LIKE",
+                    "probability" : 0.00416,
+                    "canonicalColumnName" : "public.part.p_type",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 88,
+                        "data" : 1,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.00416,
+                    "canonicalColumnName" : "public.part.p_size",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.00416
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "p_partkey"
+          ],
+          "pkTag" : 3
+        }
+      ],
+      "tableName" : "public.part"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "16_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 19,
+                    "data" : 1,
+                    "type" : "LIKE"
+                  }
+                ],
+                "operator" : "LIKE",
+                "probability" : 0.0004,
+                "canonicalColumnName" : "public.supplier.s_comment",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.0004
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "s_suppkey"
+          ],
+          "pkTag" : 2
+        }
+      ],
+      "tableName" : "public.supplier"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.supplier.s_suppkey",
+          "localCols" : "public.partsupp.ps_suppkey",
+          "pkTag" : 2,
+          "probability" : 0.9996,
+          "type" : "ANTI_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.part.p_partkey",
+          "localCols" : "public.partsupp.ps_partkey",
+          "pkTag" : 0,
+          "probability" : 0.1483055722,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.partsupp"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 20,
+                        "data" : -1,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "NE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.part.p_brand",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 22,
+                        "data" : 2,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 23,
+                        "data" : 3,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 24,
+                        "data" : 4,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 25,
+                        "data" : 5,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 26,
+                        "data" : 6,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 27,
+                        "data" : 7,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 28,
+                        "data" : 8,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 29,
+                        "data" : 9,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "IN",
+                    "probability" : 0.148305,
+                    "canonicalColumnName" : "public.part.p_size",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 21,
+                        "data" : -1,
+                        "type" : "LIKE"
+                      }
+                    ],
+                    "operator" : "NOT_LIKE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.part.p_type",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.148305
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "p_partkey"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.part"
+    }
+  ]
+}

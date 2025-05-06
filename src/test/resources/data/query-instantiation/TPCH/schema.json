@@ -1,0 +1,131 @@
+{
+  "public.lineitem" : {
+    "tableSize" : 6001215,
+    "primaryKeys" : "public.lineitem.l_linenumber",
+    "canonicalColumnNames" : [
+      "public.lineitem.l_orderkey",
+      "public.lineitem.l_partkey",
+      "public.lineitem.l_suppkey",
+      "public.lineitem.l_linenumber",
+      "public.lineitem.l_quantity",
+      "public.lineitem.l_extendedprice",
+      "public.lineitem.l_discount",
+      "public.lineitem.l_tax",
+      "public.lineitem.l_returnflag",
+      "public.lineitem.l_linestatus",
+      "public.lineitem.l_shipdate",
+      "public.lineitem.l_commitdate",
+      "public.lineitem.l_receiptdate",
+      "public.lineitem.l_shipinstruct",
+      "public.lineitem.l_shipmode",
+      "public.lineitem.l_comment"
+    ],
+    "foreignKeys" : {
+      "public.lineitem.l_orderkey" : "public.orders.o_orderkey",
+      "public.lineitem.l_partkey" : "public.part.p_partkey",
+      "public.lineitem.l_suppkey" : "public.supplier.s_suppkey"
+    }
+  },
+  "public.customer" : {
+    "tableSize" : 150000,
+    "primaryKeys" : "public.customer.c_custkey",
+    "canonicalColumnNames" : [
+      "public.customer.c_custkey",
+      "public.customer.c_name",
+      "public.customer.c_address",
+      "public.customer.c_nationkey",
+      "public.customer.c_phone",
+      "public.customer.c_acctbal",
+      "public.customer.c_mktsegment",
+      "public.customer.c_comment"
+    ],
+    "foreignKeys" : {
+      "public.customer.c_nationkey" : "public.nation.n_nationkey"
+    }
+  },
+  "public.orders" : {
+    "tableSize" : 1500000,
+    "primaryKeys" : "public.orders.o_orderkey",
+    "canonicalColumnNames" : [
+      "public.orders.o_orderkey",
+      "public.orders.o_custkey",
+      "public.orders.o_orderstatus",
+      "public.orders.o_totalprice",
+      "public.orders.o_orderdate",
+      "public.orders.o_orderpriority",
+      "public.orders.o_clerk",
+      "public.orders.o_shippriority",
+      "public.orders.o_comment"
+    ],
+    "foreignKeys" : {
+      "public.orders.o_custkey" : "public.customer.c_custkey"
+    }
+  },
+  "public.nation" : {
+    "tableSize" : 25,
+    "primaryKeys" : "public.nation.n_nationkey",
+    "canonicalColumnNames" : [
+      "public.nation.n_nationkey",
+      "public.nation.n_name",
+      "public.nation.n_regionkey",
+      "public.nation.n_comment"
+    ],
+    "foreignKeys" : {
+      "public.nation.n_regionkey" : "public.region.r_regionkey"
+    }
+  },
+  "public.supplier" : {
+    "tableSize" : 10000,
+    "primaryKeys" : "public.supplier.s_suppkey",
+    "canonicalColumnNames" : [
+      "public.supplier.s_suppkey",
+      "public.supplier.s_name",
+      "public.supplier.s_address",
+      "public.supplier.s_nationkey",
+      "public.supplier.s_phone",
+      "public.supplier.s_acctbal",
+      "public.supplier.s_comment"
+    ],
+    "foreignKeys" : {
+      "public.supplier.s_nationkey" : "public.nation.n_nationkey"
+    }
+  },
+  "public.partsupp" : {
+    "tableSize" : 800000,
+    "canonicalColumnNames" : [
+      "public.partsupp.ps_partkey",
+      "public.partsupp.ps_suppkey",
+      "public.partsupp.ps_availqty",
+      "public.partsupp.ps_supplycost",
+      "public.partsupp.ps_comment"
+    ],
+    "foreignKeys" : {
+      "public.partsupp.ps_partkey" : "public.part.p_partkey",
+      "public.partsupp.ps_suppkey" : "public.supplier.s_suppkey"
+    }
+  },
+  "public.part" : {
+    "tableSize" : 200000,
+    "primaryKeys" : "public.part.p_partkey",
+    "canonicalColumnNames" : [
+      "public.part.p_partkey",
+      "public.part.p_name",
+      "public.part.p_mfgr",
+      "public.part.p_brand",
+      "public.part.p_type",
+      "public.part.p_size",
+      "public.part.p_container",
+      "public.part.p_retailprice",
+      "public.part.p_comment"
+    ]
+  },
+  "public.region" : {
+    "tableSize" : 5,
+    "primaryKeys" : "public.region.r_regionkey",
+    "canonicalColumnNames" : [
+      "public.region.r_regionkey",
+      "public.region.r_name",
+      "public.region.r_comment"
+    ]
+  }
+}

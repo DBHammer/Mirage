@@ -1,0 +1,142 @@
+{
+  "t1_2.sql": [
+    {
+      "nodes": [
+        {
+          "constraintChainNodeType": "FILTER",
+          "root": {
+            "type": "AND",
+            "children": [
+              {
+                "parameters": [
+                  {
+                    "id" : 1,
+                    "data" : 10,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator": "GT",
+                "probability": null,
+                "arithmeticTree": {
+                  "leftNode": {
+                    "leftNode": {
+                      "leftNode": null,
+                      "rightNode": null,
+                      "type": "COLUMN",
+                      "canonicalColumnName": "test.test.c2"
+                    },
+                    "rightNode": {
+                      "leftNode": {
+                        "leftNode": null,
+                        "rightNode": null,
+                        "type": "CONSTANT",
+                        "constant": 2.0
+                      },
+                      "rightNode": {
+                        "leftNode": null,
+                        "rightNode": null,
+                        "type": "COLUMN",
+                        "canonicalColumnName": "test.test.c3"
+                      },
+                      "type": "MUL"
+                    },
+                    "type": "PLUS"
+                  },
+                  "rightNode": {
+                    "leftNode": null,
+                    "rightNode": null,
+                    "type": "COLUMN",
+                    "canonicalColumnName": "test.test.c4"
+                  },
+                  "type": "PLUS"
+                },
+                "colNames": [
+                  "test.test.c4",
+                  "test.test.c3",
+                  "test.test.c2"
+                ],
+                "type": "MULTI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability": 0.8364779874,
+          "columns": [
+            "test.test.c4",
+            "test.test.c3",
+            "test.test.c2"
+          ]
+        }
+      ]
+    }
+  ],
+  "t1_1.sql": [
+    {
+      "nodes": [
+        {
+          "constraintChainNodeType": "FILTER",
+          "root": {
+            "type": "AND",
+            "children": [
+              {
+                "parameters": [
+                  {
+                    "id" : 0,
+                    "data" : 40,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator": "GT",
+                "probability": null,
+                "arithmeticTree": {
+                  "leftNode": {
+                    "leftNode": null,
+                    "rightNode": null,
+                    "type": "COLUMN",
+                    "canonicalColumnName": "test.test.c2"
+                  },
+                  "rightNode": {
+                    "leftNode": {
+                      "leftNode": {
+                        "leftNode": null,
+                        "rightNode": null,
+                        "type": "CONSTANT",
+                        "constant": 2.0
+                      },
+                      "rightNode": {
+                        "leftNode": null,
+                        "rightNode": null,
+                        "type": "COLUMN",
+                        "canonicalColumnName": "test.test.c3"
+                      },
+                      "type": "MUL"
+                    },
+                    "rightNode": {
+                      "leftNode": null,
+                      "rightNode": null,
+                      "type": "COLUMN",
+                      "canonicalColumnName": "test.test.c4"
+                    },
+                    "type": "MUL"
+                  },
+                  "type": "PLUS"
+                },
+                "colNames": [
+                  "test.test.c4",
+                  "test.test.c3",
+                  "test.test.c2"
+                ],
+                "type": "MULTI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability": 0.3270440252,
+          "columns": [
+            "test.test.c4",
+            "test.test.c3",
+            "test.test.c2"
+          ]
+        }
+      ]
+    }
+  ]
+}

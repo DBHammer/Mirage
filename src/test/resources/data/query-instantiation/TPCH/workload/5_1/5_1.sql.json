@@ -1,0 +1,152 @@
+{
+  "5_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.region.r_regionkey",
+          "localCols" : "public.nation.n_regionkey",
+          "pkTag" : 1,
+          "probability" : 0.2,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "n_nationkey"
+          ],
+          "pkTag" : 5
+        }
+      ],
+      "tableName" : "public.nation"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 125,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.2,
+                "canonicalColumnName" : "public.region.r_name",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.2
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "r_regionkey"
+          ],
+          "pkTag" : 1
+        }
+      ],
+      "tableName" : "public.region"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.nation.n_nationkey",
+          "localCols" : "public.customer.c_nationkey",
+          "pkTag" : 5,
+          "probability" : 0.1984266667,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "c_custkey"
+          ],
+          "pkTag" : 3
+        }
+      ],
+      "tableName" : "public.customer"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 123,
+                        "data" : 2042,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 0.1510966667,
+                    "canonicalColumnName" : "public.orders.o_orderdate",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 124,
+                        "data" : 2408,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LT",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.orders.o_orderdate",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.1510966667
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer.c_custkey",
+          "localCols" : "public.orders.o_custkey",
+          "pkTag" : 3,
+          "probability" : 0.1997838029,
+          "probabilityWithFailFilter" : 0.1992492274,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "o_orderkey"
+          ],
+          "pkTag" : 4
+        }
+      ],
+      "tableName" : "public.orders"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.orders.o_orderkey",
+          "localCols" : "public.lineitem.l_orderkey",
+          "pkTag" : 4,
+          "probability" : 0.03023787683,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.lineitem"
+    }
+  ]
+}

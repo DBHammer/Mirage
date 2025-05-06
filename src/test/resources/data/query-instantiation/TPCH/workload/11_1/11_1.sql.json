@@ -1,0 +1,112 @@
+{
+  "11_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 4,
+                    "data" : 3,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.04,
+                "canonicalColumnName" : "public.nation.n_name",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.04
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "n_nationkey"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.nation"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.nation.n_nationkey",
+          "localCols" : "public.supplier.s_nationkey",
+          "pkTag" : 0,
+          "probability" : 0.0406,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "s_suppkey"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.supplier"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.supplier.s_suppkey",
+          "localCols" : "public.partsupp.ps_suppkey",
+          "pkTag" : 0,
+          "probability" : 0.0406,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "AGGREGATE",
+          "aggProbability" : 0.00003078817734,
+          "aggFilter" : {
+            "constraintChainNodeType" : "FILTER",
+            "root" : {
+              "type" : "AND",
+              "children" : [
+                {
+                  "parameters" : [
+                    {
+                      "id" : 5,
+                      "data" : 0,
+                      "type" : "VIRTUAL"
+                    }
+                  ],
+                  "operator" : "EQ",
+                  "arithmeticTree" : {
+                    "leftNode" : {
+                      "leftNode" : {
+                        "type" : "COLUMN",
+                        "canonicalColumnName" : "public.partsupp.ps_supplycost"
+                      },
+                      "type" : "SUM"
+                    },
+                    "rightNode" : {
+                      "type" : "CONSTANT",
+                      "constant" : 1.0E-4
+                    },
+                    "type" : "MUL"
+                  },
+                  "type" : "MULTI_FILTER_OPERATION",
+                  "allCanonicalColumnNames" : [
+                    "public.partsupp.ps_supplycost"
+                  ]
+                }
+              ]
+            },
+            "probability" : 0.00003078817734
+          }
+        }
+      ],
+      "tableName" : "public.partsupp"
+    }
+  ]
+}

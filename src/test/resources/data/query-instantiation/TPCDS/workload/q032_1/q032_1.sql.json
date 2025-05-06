@@ -1,0 +1,121 @@
+{
+  "q032_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.date_dim.d_date_sk",
+          "localCols" : "public.store_sales.ss_sold_date_sk",
+          "pkTag" : 26,
+          "probability" : 0.009343828157,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.item.i_item_sk",
+          "localCols" : "public.store_sales.ss_item_sk",
+          "pkTag" : 10,
+          "probability" : 0.2990265289,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.store_sales"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 139,
+                        "data" : 73018,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 0.0004243726814,
+                    "canonicalColumnName" : "public.date_dim.d_date",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 140,
+                        "data" : 73050,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.date_dim.d_date",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.0004243726814
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "d_date_sk"
+          ],
+          "pkTag" : 26
+        }
+      ],
+      "tableName" : "public.date_dim"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 141,
+                    "data" : 6,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 142,
+                    "data" : 7,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 143,
+                    "data" : 8,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "IN",
+                "probability" : 0.2994444444,
+                "canonicalColumnName" : "public.item.i_category",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.2994444444
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "i_item_sk"
+          ],
+          "pkTag" : 10
+        }
+      ],
+      "tableName" : "public.item"
+    }
+  ]
+}

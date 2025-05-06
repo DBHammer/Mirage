@@ -1,0 +1,100 @@
+{
+  "22_1.sql_2" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 109,
+                        "data" : -1,
+                        "type" : "VIRTUAL"
+                      }
+                    ],
+                    "operator" : "GT",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.customer.c_acctbal",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 110,
+                        "data" : 1,
+                        "type" : "SUBSTRING"
+                      },
+                      {
+                        "id" : 111,
+                        "data" : 2,
+                        "type" : "SUBSTRING"
+                      },
+                      {
+                        "id" : 112,
+                        "data" : 3,
+                        "type" : "SUBSTRING"
+                      },
+                      {
+                        "id" : 113,
+                        "data" : 4,
+                        "type" : "SUBSTRING"
+                      },
+                      {
+                        "id" : 114,
+                        "data" : 5,
+                        "type" : "SUBSTRING"
+                      },
+                      {
+                        "id" : 115,
+                        "data" : 6,
+                        "type" : "SUBSTRING"
+                      },
+                      {
+                        "id" : 116,
+                        "data" : 7,
+                        "type" : "SUBSTRING"
+                      }
+                    ],
+                    "operator" : "IN",
+                    "probability" : 0.1272,
+                    "canonicalColumnName" : "public.customer.c_phone",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.1272
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "c_custkey"
+          ],
+          "pkTag" : 1
+        }
+      ],
+      "tableName" : "public.customer"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer.c_custkey",
+          "localCols" : "public.orders.o_custkey",
+          "pkTag" : 1,
+          "probability" : 0.008476,
+          "pkDistinctProbability" : 0.008476,
+          "type" : "ANTI_SEMI_JOIN"
+        }
+      ],
+      "tableName" : "public.orders"
+    }
+  ]
+}

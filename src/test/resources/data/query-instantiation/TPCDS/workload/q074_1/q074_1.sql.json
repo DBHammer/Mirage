@@ -1,0 +1,41 @@
+{
+  "q074_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 400,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 401,
+                    "data" : 2,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 402,
+                    "data" : 3,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "IN",
+                "probability" : 0.009111111111,
+                "canonicalColumnName" : "public.item.i_color",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.009111111111
+        }
+      ],
+      "tableName" : "public.item"
+    }
+  ]
+}

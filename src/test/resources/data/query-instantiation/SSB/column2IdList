@@ -1,0 +1,65 @@
+{
+  "public.customer.c_nation" : [
+    [
+      26
+    ]
+  ],
+  "public.supplier.s_nation" : [
+    [
+      27,
+      51
+    ]
+  ],
+  "public.date.d_year" : [
+    [
+      0
+    ]
+  ],
+  "public.supplier.s_region" : [
+    [
+      20
+    ],
+    [
+      15,
+      42,
+      46
+    ],
+    [
+      17,
+      22
+    ]
+  ],
+  "public.part.p_brand1" : [
+    [
+      21
+    ]
+  ],
+  "public.customer.c_region" : [
+    [
+      41,
+      45,
+      55
+    ],
+    [
+      23
+    ]
+  ],
+  "public.date.d_yearmonth" : [
+    [
+      38
+    ]
+  ],
+  "public.date.d_yearmonthnum" : [
+    [
+      4
+    ]
+  ],
+  "public.part.p_category" : [
+    [
+      16
+    ],
+    [
+      52
+    ]
+  ]
+}

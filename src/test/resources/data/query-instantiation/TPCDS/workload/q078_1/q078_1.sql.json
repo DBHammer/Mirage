@@ -1,0 +1,111 @@
+{
+  "q078_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.item.i_item_sk",
+          "localCols" : "public.store_sales.ss_item_sk",
+          "pkTag" : 19,
+          "probability" : 0.009757311822,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.date_dim.d_date_sk",
+          "localCols" : "public.store_sales.ss_sold_date_sk",
+          "pkTag" : 52,
+          "probability" : 0.03419320406,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.store_sales"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 412,
+                    "data" : 2,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.009333333333,
+                "canonicalColumnName" : "public.item.i_manager_id",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.009333333333
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "i_item_sk"
+          ],
+          "pkTag" : 19
+        }
+      ],
+      "tableName" : "public.item"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 413,
+                        "data" : 18,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.0004243726814,
+                    "canonicalColumnName" : "public.date_dim.d_moy",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 414,
+                        "data" : 18,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.0004243726814,
+                    "canonicalColumnName" : "public.date_dim.d_year",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.0004243726814
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "d_date_sk"
+          ],
+          "pkTag" : 52
+        }
+      ],
+      "tableName" : "public.date_dim"
+    }
+  ]
+}

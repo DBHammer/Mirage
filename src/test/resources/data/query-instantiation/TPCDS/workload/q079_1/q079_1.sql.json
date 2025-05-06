@@ -1,0 +1,131 @@
+{
+  "q079_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer_address.ca_address_sk",
+          "localCols" : "public.customer.c_current_addr_sk",
+          "pkTag" : 17,
+          "probability" : 0.00756,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.household_demographics.hd_demo_sk",
+          "localCols" : "public.customer.c_current_hdemo_sk",
+          "pkTag" : 11,
+          "probability" : 0.1746031746,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.customer"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 415,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.0084,
+                "canonicalColumnName" : "public.customer_address.ca_city",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.0084
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "ca_address_sk"
+          ],
+          "pkTag" : 17
+        }
+      ],
+      "tableName" : "public.customer_address"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.income_band.ib_income_band_sk",
+          "localCols" : "public.household_demographics.hd_income_band_sk",
+          "pkTag" : 0,
+          "probability" : 0.2,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "hd_demo_sk"
+          ],
+          "pkTag" : 11
+        }
+      ],
+      "tableName" : "public.household_demographics"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 416,
+                        "data" : 16,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 0.2,
+                    "canonicalColumnName" : "public.income_band.ib_lower_bound",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 417,
+                        "data" : 21,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.income_band.ib_upper_bound",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.2
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "ib_income_band_sk"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.income_band"
+    }
+  ]
+}

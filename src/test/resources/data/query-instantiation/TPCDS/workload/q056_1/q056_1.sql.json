@@ -1,0 +1,31 @@
+{
+  "q056_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 243,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.47428,
+                "canonicalColumnName" : "public.customer.c_preferred_cust_flag",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.47428
+        }
+      ],
+      "tableName" : "public.customer"
+    }
+  ]
+}

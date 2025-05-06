@@ -1,0 +1,91 @@
+{
+  "10_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 3,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.2464284316,
+                "canonicalColumnName" : "public.lineitem.l_returnflag",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.2464284316
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.orders.o_orderkey",
+          "localCols" : "public.lineitem.l_orderkey",
+          "pkTag" : 0,
+          "probability" : 0.07643471029,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.lineitem"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 1,
+                        "data" : 2317,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 0.03767733333,
+                    "canonicalColumnName" : "public.orders.o_orderdate",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 2,
+                        "data" : 2408,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LT",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.orders.o_orderdate",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.03767733333
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "o_orderkey"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.orders"
+    }
+  ]
+}

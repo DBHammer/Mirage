@@ -1,0 +1,238 @@
+{
+  "q060_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.time_dim.t_time_sk",
+          "localCols" : "public.store_sales.ss_sold_time_sk",
+          "pkTag" : 5,
+          "probability" : 0.03889940439,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.store.s_store_sk",
+          "localCols" : "public.store_sales.ss_store_sk",
+          "pkTag" : 4,
+          "probability" : 0.1613533727,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.household_demographics.hd_demo_sk",
+          "localCols" : "public.store_sales.ss_hdemo_sk",
+          "pkTag" : 3,
+          "probability" : 0.160185851,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.store_sales"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 264,
+                        "data" : 62,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LT",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.time_dim.t_minute",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 265,
+                        "data" : 23,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.02083333333,
+                    "canonicalColumnName" : "public.time_dim.t_hour",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.02083333333
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "t_time_sk"
+          ],
+          "pkTag" : 5
+        }
+      ],
+      "tableName" : "public.time_dim"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 263,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.08333333333,
+                "canonicalColumnName" : "public.store.s_store_name",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.08333333333
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "s_store_sk"
+          ],
+          "pkTag" : 4
+        }
+      ],
+      "tableName" : "public.store"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "OR",
+                "children" : [
+                  {
+                    "type" : "AND",
+                    "children" : [
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 266,
+                            "data" : 3,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "EQ",
+                        "probability" : 0.1666666667,
+                        "canonicalColumnName" : "public.household_demographics.hd_dep_count",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 267,
+                            "data" : 7,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "LE",
+                        "probability" : 1,
+                        "canonicalColumnName" : "public.household_demographics.hd_vehicle_count",
+                        "type" : "UNI_FILTER_OPERATION"
+                      }
+                    ]
+                  },
+                  {
+                    "type" : "AND",
+                    "children" : [
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 270,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "EQ",
+                        "probability" : 0,
+                        "canonicalColumnName" : "public.household_demographics.hd_dep_count",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 271,
+                            "data" : 7,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "LE",
+                        "probability" : 1,
+                        "canonicalColumnName" : "public.household_demographics.hd_vehicle_count",
+                        "type" : "UNI_FILTER_OPERATION"
+                      }
+                    ]
+                  },
+                  {
+                    "type" : "AND",
+                    "children" : [
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 268,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "EQ",
+                        "probability" : 0,
+                        "canonicalColumnName" : "public.household_demographics.hd_dep_count",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 269,
+                            "data" : 7,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "LE",
+                        "probability" : 1,
+                        "canonicalColumnName" : "public.household_demographics.hd_vehicle_count",
+                        "type" : "UNI_FILTER_OPERATION"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.1666666667
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "hd_demo_sk"
+          ],
+          "pkTag" : 3
+        }
+      ],
+      "tableName" : "public.household_demographics"
+    }
+  ]
+}

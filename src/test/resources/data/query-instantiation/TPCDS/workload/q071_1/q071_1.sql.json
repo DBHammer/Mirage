@@ -1,0 +1,199 @@
+{
+  "q071_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.store.s_store_sk",
+          "localCols" : "public.store_sales.ss_store_sk",
+          "pkTag" : 12,
+          "probability" : 0.7957828138,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.date_dim.d_date_sk",
+          "localCols" : "public.store_sales.ss_sold_date_sk",
+          "pkTag" : 46,
+          "probability" : 0.08317336889,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.household_demographics.hd_demo_sk",
+          "localCols" : "public.store_sales.ss_hdemo_sk",
+          "pkTag" : 10,
+          "probability" : 0.8420754479,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.store_sales"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 356,
+                        "data" : 3,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 0.9166666667,
+                    "canonicalColumnName" : "public.store.s_number_employees",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 357,
+                        "data" : 10,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.store.s_number_employees",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.9166666667
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "s_store_sk"
+          ],
+          "pkTag" : 12
+        }
+      ],
+      "tableName" : "public.store"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 352,
+                        "data" : 1,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.002149242289,
+                    "canonicalColumnName" : "public.date_dim.d_dow",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 353,
+                        "data" : 40,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 354,
+                        "data" : 40,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 355,
+                        "data" : 40,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "IN",
+                    "probability" : 0.002149242289,
+                    "canonicalColumnName" : "public.date_dim.d_year",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.002149242289
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "d_date_sk"
+          ],
+          "pkTag" : 46
+        }
+      ],
+      "tableName" : "public.date_dim"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "OR",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 358,
+                        "data" : 2,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GT",
+                    "probability" : 0.85,
+                    "canonicalColumnName" : "public.household_demographics.hd_vehicle_count",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 359,
+                        "data" : -1,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0,
+                    "canonicalColumnName" : "public.household_demographics.hd_dep_count",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.85
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "hd_demo_sk"
+          ],
+          "pkTag" : 10
+        }
+      ],
+      "tableName" : "public.household_demographics"
+    }
+  ]
+}

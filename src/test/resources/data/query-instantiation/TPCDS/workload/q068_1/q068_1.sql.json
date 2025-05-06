@@ -1,0 +1,51 @@
+{
+  "q068_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer_address.ca_address_sk",
+          "localCols" : "public.customer.c_current_addr_sk",
+          "pkTag" : 12,
+          "probability" : 0.43494,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.customer"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 333,
+                    "data" : 2,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.43802,
+                "canonicalColumnName" : "public.customer_address.ca_gmt_offset",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.43802
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "ca_address_sk"
+          ],
+          "pkTag" : 12
+        }
+      ],
+      "tableName" : "public.customer_address"
+    }
+  ]
+}

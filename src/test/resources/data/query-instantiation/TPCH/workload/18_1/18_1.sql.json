@@ -1,0 +1,46 @@
+{
+  "18_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "AGGREGATE",
+          "groupKey" : [
+            "public.lineitem.l_orderkey"
+          ],
+          "aggProbability" : 0.2499493852,
+          "aggFilter" : {
+            "constraintChainNodeType" : "FILTER",
+            "root" : {
+              "type" : "AND",
+              "children" : [
+                {
+                  "parameters" : [
+                    {
+                      "id" : 33,
+                      "data" : 0,
+                      "type" : "ACTUAL"
+                    }
+                  ],
+                  "operator" : "GT",
+                  "arithmeticTree" : {
+                    "leftNode" : {
+                      "type" : "COLUMN",
+                      "canonicalColumnName" : "public.lineitem.l_quantity"
+                    },
+                    "type" : "SUM"
+                  },
+                  "type" : "MULTI_FILTER_OPERATION",
+                  "allCanonicalColumnNames" : [
+                    "public.lineitem.l_quantity"
+                  ]
+                }
+              ]
+            },
+            "probability" : 0.000001499696311
+          }
+        }
+      ],
+      "tableName" : "public.lineitem"
+    }
+  ]
+}

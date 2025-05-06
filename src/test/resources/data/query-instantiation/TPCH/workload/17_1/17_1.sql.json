@@ -1,0 +1,120 @@
+{
+  "17_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.part.p_partkey",
+          "localCols" : "public.lineitem.l_partkey",
+          "pkTag" : 1,
+          "probability" : 0.001009295618,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "AGGREGATE",
+          "groupKey" : [
+            "public.lineitem.l_partkey"
+          ],
+          "aggProbability" : 0.03252435199,
+          "aggFilter" : {
+            "constraintChainNodeType" : "FILTER",
+            "root" : {
+              "type" : "AND",
+              "children" : [
+                {
+                  "parameters" : [
+                    {
+                      "id" : 32,
+                      "data" : 0,
+                      "type" : "ACTUAL"
+                    }
+                  ],
+                  "operator" : "LT",
+                  "arithmeticTree" : {
+                    "leftNode" : {
+                      "type" : "COLUMN",
+                      "canonicalColumnName" : "public.lineitem.l_quantity"
+                    },
+                    "rightNode" : {
+                      "leftNode" : {
+                        "type" : "CONSTANT",
+                        "constant" : 0.2
+                      },
+                      "rightNode" : {
+                        "leftNode" : {
+                          "type" : "COLUMN",
+                          "canonicalColumnName" : "public.lineitem.l_quantity"
+                        },
+                        "type" : "AVG"
+                      },
+                      "type" : "MUL"
+                    },
+                    "type" : "MINUS"
+                  },
+                  "type" : "MULTI_FILTER_OPERATION",
+                  "allCanonicalColumnNames" : [
+                    "public.lineitem.l_quantity"
+                  ]
+                }
+              ]
+            },
+            "probability" : 0.09162951956
+          }
+        }
+      ],
+      "tableName" : "public.lineitem"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 30,
+                        "data" : 1,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.001025,
+                    "canonicalColumnName" : "public.part.p_brand",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 31,
+                        "data" : 1,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "EQ",
+                    "probability" : 0.001025,
+                    "canonicalColumnName" : "public.part.p_container",
+                    "type" : "UNI_FILTER_OPERATION"
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.001025
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "p_partkey"
+          ],
+          "pkTag" : 1
+        }
+      ],
+      "tableName" : "public.part"
+    }
+  ]
+}

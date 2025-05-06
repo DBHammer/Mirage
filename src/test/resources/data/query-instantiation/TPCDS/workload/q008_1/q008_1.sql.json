@@ -1,0 +1,147 @@
+{
+  "q008_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "OR",
+                "children" : [
+                  {
+                    "type" : "AND",
+                    "children" : [
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 20,
+                            "data" : 5,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "EQ",
+                        "probability" : 0.05714285714,
+                        "canonicalColumnName" : "public.customer_demographics.cd_marital_status",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 21,
+                            "data" : 5,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "EQ",
+                        "probability" : 0.05714285714,
+                        "canonicalColumnName" : "public.customer_demographics.cd_education_status",
+                        "type" : "UNI_FILTER_OPERATION"
+                      }
+                    ]
+                  },
+                  {
+                    "type" : "AND",
+                    "children" : [
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 22,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "EQ",
+                        "probability" : 0,
+                        "canonicalColumnName" : "public.customer_demographics.cd_marital_status",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 23,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "EQ",
+                        "probability" : 0,
+                        "canonicalColumnName" : "public.customer_demographics.cd_education_status",
+                        "type" : "UNI_FILTER_OPERATION"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.05714285714
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "cd_demo_sk"
+          ],
+          "pkTag" : 1
+        }
+      ],
+      "tableName" : "public.customer_demographics"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer_demographics.cd_demo_sk",
+          "localCols" : "public.customer.c_current_cdemo_sk",
+          "pkTag" : 1,
+          "probability" : 0.05507,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.customer_address.ca_address_sk",
+          "localCols" : "public.customer.c_current_addr_sk",
+          "pkTag" : 0,
+          "probability" : 0.4240058108,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.customer"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 24,
+                    "data" : 2,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.43802,
+                "canonicalColumnName" : "public.customer_address.ca_gmt_offset",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.43802
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "ca_address_sk"
+          ],
+          "pkTag" : 0
+        }
+      ],
+      "tableName" : "public.customer_address"
+    }
+  ]
+}

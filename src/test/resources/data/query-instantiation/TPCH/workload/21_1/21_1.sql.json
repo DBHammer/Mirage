@@ -1,0 +1,149 @@
+{
+  "21_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 96,
+                    "data" : -341000000,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "GT",
+                "probability" : 0.3679119978,
+                "arithmeticTree" : {
+                  "leftNode" : {
+                    "type" : "COLUMN",
+                    "canonicalColumnName" : "public.lineitem.l_receiptdate"
+                  },
+                  "rightNode" : {
+                    "type" : "COLUMN",
+                    "canonicalColumnName" : "public.lineitem.l_commitdate"
+                  },
+                  "type" : "MINUS"
+                },
+                "type" : "MULTI_FILTER_OPERATION",
+                "allCanonicalColumnNames" : [
+                  "public.lineitem.l_receiptdate",
+                  "public.lineitem.l_commitdate"
+                ]
+              }
+            ]
+          },
+          "probability" : 0.6320880022
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.supplier.s_suppkey",
+          "localCols" : "public.lineitem.l_suppkey",
+          "pkTag" : 5,
+          "probability" : 0.03728815257,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.orders.o_orderkey",
+          "localCols" : "public.lineitem.l_orderkey",
+          "pkTag" : 1,
+          "probability" : 0.4831772067,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.lineitem"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 95,
+                    "data" : 2,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.04,
+                "canonicalColumnName" : "public.nation.n_name",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.04
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "n_nationkey"
+          ],
+          "pkTag" : 4
+        }
+      ],
+      "tableName" : "public.nation"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.nation.n_nationkey",
+          "localCols" : "public.supplier.s_nationkey",
+          "pkTag" : 4,
+          "probability" : 0.0373,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "s_suppkey"
+          ],
+          "pkTag" : 5
+        }
+      ],
+      "tableName" : "public.supplier"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 94,
+                    "data" : 1,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.4862753333,
+                "canonicalColumnName" : "public.orders.o_orderstatus",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.4862753333
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "o_orderkey"
+          ],
+          "pkTag" : 1
+        }
+      ],
+      "tableName" : "public.orders"
+    }
+  ]
+}

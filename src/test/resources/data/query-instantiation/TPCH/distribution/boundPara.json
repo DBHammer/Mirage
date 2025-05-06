@@ -1,0 +1,22 @@
+{
+  "public.lineitem.l_shipinstruct" : {
+    "0" : 1
+  },
+  "public.lineitem.l_shipmode" : {
+    "0" : 3
+  },
+  "public.part.p_brand" : {
+    "0" : 2,
+    "0.002430" : 1
+  },
+  "public.part.p_container" : {
+    "0" : 2,
+    "0.002430" : 1
+  },
+  "public.part.p_size" : {
+    "0" : 1
+  },
+  "public.part.p_type" : {
+    "0" : 1
+  }
+}

@@ -1,0 +1,308 @@
+{
+  "q072_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "OR",
+                "children" : [
+                  {
+                    "type" : "AND",
+                    "children" : [
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 360,
+                            "data" : 5,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 361,
+                            "data" : 5,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 362,
+                            "data" : 5,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "IN",
+                        "probability" : 0.05188888889,
+                        "canonicalColumnName" : "public.item.i_category",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 367,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 368,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 369,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 370,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "IN",
+                        "probability" : 0.05188888889,
+                        "canonicalColumnName" : "public.item.i_brand",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 363,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 364,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 365,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 366,
+                            "data" : 2,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "IN",
+                        "probability" : 0.05188888889,
+                        "canonicalColumnName" : "public.item.i_class",
+                        "type" : "UNI_FILTER_OPERATION"
+                      }
+                    ]
+                  },
+                  {
+                    "type" : "AND",
+                    "children" : [
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 371,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 372,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 373,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "IN",
+                        "probability" : 0,
+                        "canonicalColumnName" : "public.item.i_category",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 378,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 379,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 380,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 381,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "IN",
+                        "probability" : 0,
+                        "canonicalColumnName" : "public.item.i_brand",
+                        "type" : "UNI_FILTER_OPERATION"
+                      },
+                      {
+                        "parameters" : [
+                          {
+                            "id" : 374,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 375,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 376,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          },
+                          {
+                            "id" : 377,
+                            "data" : -1,
+                            "type" : "ACTUAL"
+                          }
+                        ],
+                        "operator" : "IN",
+                        "probability" : 0,
+                        "canonicalColumnName" : "public.item.i_class",
+                        "type" : "UNI_FILTER_OPERATION"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.05188888889
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "i_item_sk"
+          ],
+          "pkTag" : 18
+        }
+      ],
+      "tableName" : "public.item"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.item.i_item_sk",
+          "localCols" : "public.store_sales.ss_item_sk",
+          "pkTag" : 18,
+          "probability" : 0.04171150991,
+          "type" : "INNER_JOIN"
+        },
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.date_dim.d_date_sk",
+          "localCols" : "public.store_sales.ss_sold_date_sk",
+          "pkTag" : 47,
+          "probability" : 0.2618647312,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.store_sales"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 382,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 383,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 384,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 385,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 386,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 387,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 388,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 389,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 390,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 391,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 392,
+                    "data" : 2400,
+                    "type" : "ACTUAL"
+                  },
+                  {
+                    "id" : 393,
+                    "data" : 2401,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "IN",
+                "probability" : 0.005010335528,
+                "canonicalColumnName" : "public.date_dim.d_month_seq",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.005010335528
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "d_date_sk"
+          ],
+          "pkTag" : 47
+        }
+      ],
+      "tableName" : "public.date_dim"
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+import java.util.*;
+import java.util.HashSet;
+import ecnu.db.generator.constraintchain.filter.arithmetic.*;
+import ecnu.db.generator.constraintchain.filter.operation.*;
+import ecnu.db.generator.constraintchain.filter.*;
+import java.io.StringReader;
+
+/* define how to connect to the scanner! */
+parser code {:
+  private final static String CANONICAL_NAME_SPLIT_REGEX = "\\.";
+  private int parameterId = 0;
+  private LogicNode root;
+
+  public LogicNode parseSelectOperatorInfo(String operatorInfo) throws Exception {
+    root = new LogicNode();
+    root.setType(BoolExprType.AND);
+    ((TidbSelectOperatorInfoLexer) getScanner()).yyreset(new StringReader(operatorInfo));
+    parse();
+    return root;
+  }
+:};
+
+/* Terminals (tokens returned by the scanner. */
+terminal   ArithmeticNodeType    PLUS, MINUS, DIV, MUL;
+terminal                         LPAREN, RPAREN;
+terminal   CompareOperator       ISNULL;
+terminal                         NOT;
+terminal                         AND, OR;
+terminal   CompareOperator       LT, GT, LE, GE, NE, EQ, LIKE, IN;
+terminal   Integer               INTEGER;
+terminal   String                STRING;
+terminal   String                DATE;
+terminal   String                CANONICAL_COLUMN_NAME;
+terminal   Float                 FLOAT;
+
+/* Non terminals */
+non terminal                                    expr;
+non terminal          List<BoolExprNode>        bool_exprs;
+non terminal          BoolExprNode              bool_expr;
+non terminal          BoolExprNode              logical_expr;
+non terminal          List<BoolExprNode>        logical_arguments;
+non terminal          AbstractFilterOperation   compare_expr;
+non terminal          AbstractFilterOperation   uni_compare_expr;
+non terminal          CompareOperator           uni_compare_operator;
+non terminal          String                    uni_compare_constant;
+non terminal          AbstractFilterOperation   multi_compare_expr;
+non terminal          UniVarFilterOperation     in_compare_expr;
+non terminal          String                    in_argument;
+non terminal          List<String>              in_arguments;
+non terminal          UniVarFilterOperation     like_compare_expr;
+non terminal          ArithmeticNode            arithmetic_expr;
+non terminal          ArithmeticNodeType        arithmetic_operator;
+non terminal          IsNullFilterOperation     isnull_expr;
+non terminal          AbstractFilterOperation   not_expr;
+
+/* start with */
+start with expr;
+
+/* ================= */
+/* The grammar rules */
+/* ================= */
+expr ::= bool_exprs:children                     {:
+                                                     root.setChildren(children);
+                                                 :}
+        ;
+bool_exprs ::=
+        bool_exprs:e2 bool_expr:e1                {:  e2.add(e1); RESULT = e2;  :}
+        | bool_expr:e                             {:
+                                                      List<BoolExprNode> children = new ArrayList<>();
+                                                      children.add(e);
+                                                      RESULT = children;
+                                                 :}
+        ;
+bool_expr ::=
+        logical_expr:e                           {:  RESULT = e;  :}
+        | compare_expr:e                         {:  RESULT = e;  :}
+        | isnull_expr:e                          {:  RESULT = e;  :}
+        | not_expr:e                             {:  RESULT = e;  :}
+        ;
+
+/* logical expressions */
+
+logical_expr ::=
+        OR:or LPAREN bool_expr:e1 bool_expr:e2 RPAREN      {:
+                                                                LogicNode node = new LogicNode();
+                                                                node.setType(BoolExprType.OR);
+                                                                List<BoolExprNode> children = new LinkedList<>();
+                                                                children.add(e1);
+                                                                children.add(e2);
+                                                                node.setChildren(children);
+                                                                RESULT = node;
+                                                            :}
+        | AND:and LPAREN logical_arguments:children RPAREN  {:
+                                                                LogicNode node = new LogicNode();
+                                                                node.setType(BoolExprType.AND);
+                                                                node.setChildren(children);
+                                                                RESULT = node;
+                                                            :}
+        ;
+logical_arguments ::=
+        bool_expr:e1 bool_expr:e2                            {:  RESULT = new ArrayList<>(Arrays.asList(e1, e2));  :}
+        | bool_expr:e1 logical_arguments:e2                  {:  e2.add(e1);  RESULT=e2;  :}      
+        ;
+
+/* compare expressions */
+
+compare_expr ::=
+        uni_compare_expr:e                                   {:  RESULT=e;  :}  
+        | multi_compare_expr:e                               {:  RESULT=e;  :} 
+        ;
+uni_compare_expr ::=
+        uni_compare_operator:op LPAREN arithmetic_expr:e1 uni_compare_constant:constant RPAREN  {:
+                                                                                                    Parameter parameter = new Parameter(parameterId++, e1.toString(), constant);
+                                                                                                    AbstractFilterOperation operation;
+                                                                                                    if (e1.getType() == ArithmeticNodeType.COLUMN) {
+                                                                                                        operation = new UniVarFilterOperation(((ColumnNode) e1).getCanonicalColumnName(), op, Collections.singletonList(parameter));
+                                                                                                    } else {
+                                                                                                        operation = new MultiVarFilterOperation(op, e1, Collections.singletonList(parameter));
+                                                                                                    }
+                                                                                                    RESULT = operation;
+                                                                                                :}
+        | uni_compare_operator:op LPAREN arithmetic_expr:e1 arithmetic_expr:e2 RPAREN           {:
+                                                                                                    if (e2.getType() == ArithmeticNodeType.CONSTANT) {
+                                                                                                        Parameter parameter = new Parameter(parameterId++, e1.toString(), ((NumericNode) e2).toString());
+                                                                                                        if (e1.getType() == ArithmeticNodeType.COLUMN) {
+                                                                                                            String canonicalColumnName = ((ColumnNode) e1).getCanonicalColumnName();
+                                                                                                            RESULT = new UniVarFilterOperation(canonicalColumnName, op, Collections.singletonList(parameter));
+                                                                                                        } else {
+                                                                                                            RESULT = new MultiVarFilterOperation(op, e1, Collections.singletonList(parameter));
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        AbstractFilterOperation operation;
+                                                                                                        ArithmeticNode e = ArithmeticNodeFactory.create(ArithmeticNodeType.MINUS);
+                                                                                                        e.setLeftNode(e1);
+                                                                                                        e.setRightNode(e2);
+                                                                                                        RESULT = new MultiVarFilterOperation(op, e, Collections.singletonList(new Parameter(parameterId++, e.toString(), "0")));
+                                                                                                    }
+                                                                                                :}
+        ;
+uni_compare_operator ::=
+        LT:lt                                                    {:  RESULT = lt;  :}
+        | GT:gt                                                  {:  RESULT = gt;  :}
+        | LE:le                                                  {:  RESULT = le;  :}
+        | GE:ge                                                  {:  RESULT = ge;  :}
+        | EQ:eq                                                  {:  RESULT = eq;  :}
+        | NE:ne                                                  {:  RESULT = ne;  :}
+        ;
+uni_compare_constant ::=
+        DATE:date                                                {:  RESULT = date;  :}
+        | STRING:str                                             {:  RESULT = str; :}
+        ;
+multi_compare_expr ::=                       
+        in_compare_expr:e                                        {:  RESULT=e;  :}
+        | like_compare_expr:e                                    {:  RESULT=e;  :}
+        ;
+in_compare_expr ::=
+        IN:in LPAREN CANONICAL_COLUMN_NAME:col in_arguments:arguments RPAREN      {:
+                                                                                      List<Parameter> parameterList = new ArrayList<>();
+                                                                                      for (String argument: arguments) {
+                                                                                        parameterList.add(new Parameter(parameterId++, col, argument));
+                                                                                      }
+                                                                                      RESULT = new UniVarFilterOperation(col, in,parameterList);
+                                                                                  :}
+        ;
+in_argument  ::=
+        STRING:str                                                                {:
+                                                                                      RESULT = str;
+                                                                                  :}
+        | DATE:date                                                               {:
+                                                                                      RESULT = date;
+                                                                                  :}
+        | INTEGER:integer                                                         {:
+                                                                                      RESULT = integer.toString();
+                                                                                  :}
+        | FLOAT:float_                                                            {:
+                                                                                      RESULT = float_.toString();
+                                                                                  :}
+        ;
+in_arguments ::=
+        in_argument:argument                                                      {:
+                                                                                      List<String> arguments = new ArrayList<>();
+                                                                                      arguments.add(argument);
+                                                                                      RESULT = arguments;
+                                                                                  :}
+        | in_arguments:arguments in_argument:argument                                    {:
+                                                                                      arguments.add(argument);
+                                                                                      RESULT = arguments;
+                                                                                  :}
+        ;
+like_compare_expr ::=
+        LIKE:like LPAREN CANONICAL_COLUMN_NAME:col STRING:str INTEGER RPAREN      {:
+                                                                                      RESULT = new UniVarFilterOperation(col, like, Collections.singletonList(new Parameter(parameterId++, col, str)));
+                                                                                  :}
+        ;
+
+/* arithmetic expressions */
+arithmetic_expr ::=
+        arithmetic_operator:op LPAREN arithmetic_expr:e1 arithmetic_expr:e2 RPAREN            {:
+                                                                                                  ArithmeticNode node = ArithmeticNodeFactory.create(op);
+                                                                                                  node.setLeftNode(e1);
+                                                                                                  node.setRightNode(e2);
+                                                                                                  RESULT = node;
+                                                                                              :}
+        | CANONICAL_COLUMN_NAME:column                                               {:
+                                                                                      ArithmeticNode node = ArithmeticNodeFactory.create(ArithmeticNodeType.COLUMN);
+                                                                                      ((ColumnNode) node).setCanonicalColumnName(column);
+                                                                                      RESULT = node;
+                                                                                  :}
+        | INTEGER:num                                                             {:
+                                                                                      ArithmeticNode node = ArithmeticNodeFactory.create(ArithmeticNodeType.CONSTANT);
+                                                                                      ((NumericNode) node).setConstant(num);
+                                                                                      RESULT = node;
+                                                                                  :}
+        | FLOAT:num                                                               {:
+                                                                                      ArithmeticNode node = ArithmeticNodeFactory.create(ArithmeticNodeType.CONSTANT);
+                                                                                      ((NumericNode) node).setConstant(num);
+                                                                                      RESULT = node;
+                                                                                  :}
+        ;
+arithmetic_operator ::=
+        PLUS:plus                                                                 {:  RESULT = plus;  :}
+        | MINUS:minus                                                             {:  RESULT = minus;  :}
+        | MUL:mul                                                                 {:  RESULT = mul;  :}
+        | DIV:div                                                                 {:  RESULT = div;  :}
+        ;
+
+/* isnull expressions */
+isnull_expr ::=
+        ISNULL:isnull LPAREN CANONICAL_COLUMN_NAME:columnName RPAREN                      {:
+                                                                                      RESULT = new IsNullFilterOperation(columnName);
+                                                                                  :}
+        ;
+
+/* not expressions */
+not_expr ::=
+        NOT:not LPAREN like_compare_expr:e RPAREN                                 {:
+                                                                                      e.setOperator(CompareOperator.NOT_LIKE);
+                                                                                      RESULT = e;
+                                                                                  :}
+        | NOT:not LPAREN in_compare_expr:e RPAREN                                 {:
+                                                                                      e.setOperator(CompareOperator.NOT_IN);
+                                                                                      RESULT = e;
+                                                                                  :}
+        | NOT:not LPAREN isnull_expr:e RPAREN                                     {:
+                                                                                      e.setOperator(CompareOperator.IS_NOT_NULL);
+                                                                                      RESULT = e;
+                                                                                  :}
+        ;

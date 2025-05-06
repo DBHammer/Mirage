@@ -1,0 +1,51 @@
+{
+  "9_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.part.p_partkey",
+          "localCols" : "public.partsupp.ps_partkey",
+          "pkTag" : 6,
+          "probability" : 0.0544,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.partsupp"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 141,
+                    "data" : 2,
+                    "type" : "LIKE"
+                  }
+                ],
+                "operator" : "LIKE",
+                "probability" : 0.0544,
+                "canonicalColumnName" : "public.part.p_name",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.0544
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "p_partkey"
+          ],
+          "pkTag" : 6
+        }
+      ],
+      "tableName" : "public.part"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "q013_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 37,
+                    "data" : 72950,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.00001368944133,
+                "canonicalColumnName" : "public.date_dim.d_date",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.00001368944133
+        }
+      ],
+      "tableName" : "public.date_dim"
+    }
+  ]
+}

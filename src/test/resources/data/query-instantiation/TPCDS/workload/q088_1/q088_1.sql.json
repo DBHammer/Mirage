@@ -1,0 +1,51 @@
+{
+  "q088_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FK_JOIN",
+          "refCols" : "public.date_dim.d_date_sk",
+          "localCols" : "public.web_returns.wr_returned_date_sk",
+          "pkTag" : 61,
+          "probability" : 0.1899864833,
+          "type" : "INNER_JOIN"
+        }
+      ],
+      "tableName" : "public.web_returns"
+    },
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 434,
+                    "data" : 37,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "EQ",
+                "probability" : 0.005010335528,
+                "canonicalColumnName" : "public.date_dim.d_year",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.005010335528
+        },
+        {
+          "constraintChainNodeType" : "PK_JOIN",
+          "pkColumns" : [
+            "d_date_sk"
+          ],
+          "pkTag" : 61
+        }
+      ],
+      "tableName" : "public.date_dim"
+    }
+  ]
+}

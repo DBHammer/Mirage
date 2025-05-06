@@ -1,0 +1,121 @@
+{
+  "12_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "type" : "AND",
+                "children" : [
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 8,
+                        "data" : 1,
+                        "type" : "ACTUAL"
+                      },
+                      {
+                        "id" : 9,
+                        "data" : 2,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "IN",
+                    "probability" : 0.005138459462,
+                    "canonicalColumnName" : "public.lineitem.l_shipmode",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 13,
+                        "data" : 2556,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LT",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.lineitem.l_receiptdate",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 12,
+                        "data" : 0,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "GE",
+                    "probability" : 1,
+                    "canonicalColumnName" : "public.lineitem.l_receiptdate",
+                    "type" : "UNI_FILTER_OPERATION"
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 11,
+                        "data" : 2496000000,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LT",
+                    "probability" : 1,
+                    "arithmeticTree" : {
+                      "leftNode" : {
+                        "type" : "COLUMN",
+                        "canonicalColumnName" : "public.lineitem.l_shipdate"
+                      },
+                      "rightNode" : {
+                        "type" : "COLUMN",
+                        "canonicalColumnName" : "public.lineitem.l_commitdate"
+                      },
+                      "type" : "MINUS"
+                    },
+                    "type" : "MULTI_FILTER_OPERATION",
+                    "allCanonicalColumnNames" : [
+                      "public.lineitem.l_commitdate",
+                      "public.lineitem.l_shipdate"
+                    ]
+                  },
+                  {
+                    "parameters" : [
+                      {
+                        "id" : 10,
+                        "data" : 2492000000,
+                        "type" : "ACTUAL"
+                      }
+                    ],
+                    "operator" : "LT",
+                    "probability" : 1,
+                    "arithmeticTree" : {
+                      "leftNode" : {
+                        "type" : "COLUMN",
+                        "canonicalColumnName" : "public.lineitem.l_commitdate"
+                      },
+                      "rightNode" : {
+                        "type" : "COLUMN",
+                        "canonicalColumnName" : "public.lineitem.l_receiptdate"
+                      },
+                      "type" : "MINUS"
+                    },
+                    "type" : "MULTI_FILTER_OPERATION",
+                    "allCanonicalColumnNames" : [
+                      "public.lineitem.l_receiptdate",
+                      "public.lineitem.l_commitdate"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "probability" : 0.005138459462
+        }
+      ],
+      "tableName" : "public.lineitem"
+    }
+  ]
+}

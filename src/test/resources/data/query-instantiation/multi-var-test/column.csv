@@ -1,0 +1,4 @@
+ColumnName,columnType,nullPercentage,specialValue,min,range,originalType,avgLength,maxLength
+test.test.c2,DECIMAL,0,100,200,2100,"INTEGER NOT NULL",0,0
+test.test.c3,DECIMAL,0,100,-300,1200,"INTEGER NOT NULL",0,0
+test.test.c4,DECIMAL,0,100,0,1000,"INTEGER NOT NULL",0,0

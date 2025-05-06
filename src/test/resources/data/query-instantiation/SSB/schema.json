@@ -1,0 +1,96 @@
+{
+  "public.date" : {
+    "tableSize" : 2556,
+    "primaryKeys" : "public.date.d_datekey",
+    "canonicalColumnNames" : [
+      "public.date.d_datekey",
+      "public.date.d_date",
+      "public.date.d_dayofweek",
+      "public.date.d_month",
+      "public.date.d_year",
+      "public.date.d_yearmonthnum",
+      "public.date.d_yearmonth",
+      "public.date.d_daynuminweek",
+      "public.date.d_daynuminmonth",
+      "public.date.d_daynuminyear",
+      "public.date.d_monthnuminyear",
+      "public.date.d_weeknuminyear",
+      "public.date.d_sellingseason",
+      "public.date.d_lastdayinweekfl",
+      "public.date.d_lastdayinmonthfl",
+      "public.date.d_holidayfl",
+      "public.date.d_weekdayfl"
+    ]
+  },
+  "public.lineorder" : {
+    "tableSize" : 6001171,
+    "primaryKeys" : "public.lineorder.lo_linenumber",
+    "canonicalColumnNames" : [
+      "public.lineorder.lo_orderkey",
+      "public.lineorder.lo_linenumber",
+      "public.lineorder.lo_custkey",
+      "public.lineorder.lo_partkey",
+      "public.lineorder.lo_suppkey",
+      "public.lineorder.lo_orderdate",
+      "public.lineorder.lo_orderpriority",
+      "public.lineorder.lo_shippriority",
+      "public.lineorder.lo_quantity",
+      "public.lineorder.lo_extendedprice",
+      "public.lineorder.lo_ordtotalprice",
+      "public.lineorder.lo_discount",
+      "public.lineorder.lo_revenue",
+      "public.lineorder.lo_supplycost",
+      "public.lineorder.lo_tax",
+      "public.lineorder.lo_commitdate",
+      "public.lineorder.lo_shipmode"
+    ],
+    "foreignKeys" : {
+      "public.lineorder.lo_custkey" : "public.customer.c_custkey",
+      "public.lineorder.lo_orderdate" : "public.date.d_datekey",
+      "public.lineorder.lo_partkey" : "public.part.p_partkey",
+      "public.lineorder.lo_suppkey" : "public.supplier.s_suppkey"
+    }
+  },
+  "public.supplier" : {
+    "tableSize" : 2000,
+    "primaryKeys" : "public.supplier.s_suppkey",
+    "canonicalColumnNames" : [
+      "public.supplier.s_suppkey",
+      "public.supplier.s_name",
+      "public.supplier.s_address",
+      "public.supplier.s_city",
+      "public.supplier.s_nation",
+      "public.supplier.s_region",
+      "public.supplier.s_phone"
+    ]
+  },
+  "public.part" : {
+    "tableSize" : 200000,
+    "primaryKeys" : "public.part.p_partkey",
+    "canonicalColumnNames" : [
+      "public.part.p_partkey",
+      "public.part.p_name",
+      "public.part.p_mfgr",
+      "public.part.p_category",
+      "public.part.p_brand1",
+      "public.part.p_color",
+      "public.part.p_type",
+      "public.part.p_size",
+      "public.part.p_container"
+    ]
+  },
+  "public.customer" : {
+    "tableSize" : 30000,
+    "primaryKeys" : "public.customer.c_custkey",
+    "canonicalColumnNames" : [
+      "public.customer.c_custkey",
+      "public.customer.c_name",
+      "public.customer.c_address",
+      "public.customer.c_city",
+      "public.customer.c_nation",
+      "public.customer.c_region",
+      "public.customer.c_phone",
+      "public.customer.c_mktsegment"
+    ]
+  }
+}

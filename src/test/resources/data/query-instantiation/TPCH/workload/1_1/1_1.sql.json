@@ -1,0 +1,31 @@
+{
+  "1_1.sql" : [
+    {
+      "nodes" : [
+        {
+          "constraintChainNodeType" : "FILTER",
+          "root" : {
+            "type" : "AND",
+            "children" : [
+              {
+                "parameters" : [
+                  {
+                    "id" : 0,
+                    "data" : 2508,
+                    "type" : "ACTUAL"
+                  }
+                ],
+                "operator" : "LE",
+                "probability" : 0.9928309517,
+                "canonicalColumnName" : "public.lineitem.l_shipdate",
+                "type" : "UNI_FILTER_OPERATION"
+              }
+            ]
+          },
+          "probability" : 0.9928309517
+        }
+      ],
+      "tableName" : "public.lineitem"
+    }
+  ]
+}
